@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Marck+Script&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <title>Просто-банк</title>
+  </head>
+  <body>
+    <!-- Header -->
+    <header class="header" id="login">
+      <div class="layout header__layout">
+        <p class="header__welcome">Вітаємо, Олександр!</p>
+        <div class="header__logo">Просто</div>
+        <div class="header__right">
+          <p class="header__exchange-rate">$ 36.5686 / 37.4532</p>
+          <button type="button" class="header__log-in" id="btnLogin">
+            <svg
+              height="24px"
+              width="24px"
+              version="1.1"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g fill="none" fill-rule="evenodd" stroke="none" stroke-width="1">
+                <path d="M0 0h24v24H0z"></path>
+                <path
+                  d="M7 20.5a1 1 0 0 1-2 0c0-3.61 3.152-6.5 7-6.5s7 2.89 7 6.5a1 1 0 0 1-2 0c0-2.465-2.22-4.5-5-4.5s-5 2.035-5 4.5zm5-7.5a5 5 0 1 1 0-10 5 5 0 0 1 0 10zm0-2a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"
+                  fill="#8dc641"
+                  fill-rule="nonzero"
+                ></path>
+              </g></svg
+            ><span>Вхiд</span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Popup Login -->
+    <div class="popup">
+      <div class="popup__wrapper">
+        <div class="popup__btn-close">
+          <span></span>
+          <span></span>
+        </div>
+        <p class="popup__text">Вхiд у Просто-банк</p>
+        <form class="popup__login">
+          <input
+            type="text"
+            placeholder="Ваше Iм'я"
+            class="login__input login__input-name"
+          />
+          <input
+            type="text"
+            placeholder="PIN-код"
+            maxlength="4"
+            class="login__input login__input-pin"
+          />
+        </form>
+        <button type="button" class="popup__btn">Вхiд</button>
+      </div>
+    </div>
+
+    <main class="main">
+      <!--Balance-->
+      <section class="balance">
+        <div class="layout layout__balance">
+          <div class="balance__card-wrapper">
+            <div class="balance__card balance__card-front">
+              <p class="balance__card-title">Simply Bank</p>
+              <h4 class="credit">Credit card.</h4>
+              <p class="balance__card-number">0000 0000 0000 0000</p>
+              <div class="balance__card-valid">
+                <p class="balance__valid valid-from">07 / 22</p>
+                <p class="balance__valid valid-end">07 / 25</p>
+              </div>
+              <p class="balance__card-owner">Mr. Jack Cohen</p>
+              <div class="balance__card-master-card">
+                <div class="circle-red"></div>
+                <div class="circle-orange"></div>
+              </div>
+            </div>
+            <div class="balance__card balance__card-back">
+              <div class="balance__card-black-line"></div>
+              <div class="balance__card-cvv">
+                <div class="balance__card-lines">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </div>
+                <p class="balance__card-number">615</p>
+              </div>
+              <div class="balance__card-square"></div>
+            </div>
+          </div>
+          <p class="balance__cash">0000 грн</p>
+        </div>
+      </section>
+
+      <!--Transactions-->
+      <section class="transactions">
+        <div class="layout transactions__layout">
+          <!-- transactions history -->
+          <div class="transactions__history">
+            <div class="transaction__row">
+              <div>
+                <p class="transaction__type transaction__deposite">Депозит</p>
+                <p class="transaction__date">2 дня тому</p>
+              </div>
+              <p class="transaction__number">5000 грн</p>
+            </div>
+            <div class="transaction__row">
+              <div>
+                <p class="transaction__type transaction__withdrawal">
+                  Вивод коштiв
+                </p>
+                <p class="transaction__date">2 дня тому</p>
+              </div>
+              <p class="transaction__number">5000 грн</p>
+            </div>
+          </div>
+
+          <!-- transactions events -->
+          <div class="transactions__events">
+            <div class="transactions__event transfer">
+              <h2 class="transactions__title">Перевести грошi</h2>
+              <form class="transactions__form">
+                <div class="inputs inputs-recipient">
+                  <input type="text" class="transactions__input" />
+                </div>
+                <div class="inputs inputs-sum">
+                  <input type="text" class="transactions__input" />
+                </div>
+                <button type="button" class="transactions__btn">
+                  <img src="img/right-arrow.png" alt="arrow right icon" />
+                </button>
+              </form>
+            </div>
+            <div class="transactions__event loan">
+              <h2 class="transactions__title">Запрости займ</h2>
+              <form class="transactions__form">
+                <div class="inputs inputs-sum">
+                  <input type="text" class="transactions__input" />
+                </div>
+                <button type="button" class="transactions__btn">
+                  <img src="img/right-arrow.png" alt="arrow right icon" />
+                </button>
+              </form>
+            </div>
+            <div class="transactions__event close">
+              <h2 class="transactions__title">Закрити рахунок</h2>
+              <form class="transactions__form">
+                <div class="inputs inputs-name">
+                  <input type="text" class="transactions__input" />
+                </div>
+                <div class="inputs inputs-pin">
+                  <input type="text" class="transactions__input" />
+                </div>
+                <button type="button" class="transactions__btn">
+                  <img src="img/right-arrow.png" alt="arrow right icon" />
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!--Footer-->
+    <footer class="footer">
+      <div class="layout footer__layout">
+        <ul class="footer__list">
+          <li class="footer__list-item">
+            <p class="footer__list-text">
+              Отриманно: <span class="footer__amount">0000 грн</span>
+            </p>
+          </li>
+          <li class="footer__list-item">
+            <p class="footer__list-text">
+              Виведенно: <span class="footer__amount">0000 грн</span>
+            </p>
+          </li>
+          <li class="footer__list-item">
+            <p class="footer__list-text">
+              Процент: <span class="footer__amount">0000 грн</span>
+            </p>
+          </li>
+        </ul>
+        <p class="footer__timer">
+          Вихід із програми через <span>05:00</span> хвилин
+        </p>
+      </div>
+    </footer>
+
+    <script src="app.js"></script>
+  </body>
+</html>
