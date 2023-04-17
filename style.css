@@ -26,6 +26,13 @@ body {
   font-family: var(--font);
   font-size: 1.6rem;
   min-height: 100vh;
+  background: rgb(2, 0, 36);
+  background: linear-gradient(
+    0deg,
+    rgba(2, 0, 36, 1) 0%,
+    rgba(188, 188, 194, 1) 0%,
+    rgba(0, 212, 255, 1) 100%
+  );
 }
 
 @media (max-width: 1023px) {
@@ -214,8 +221,8 @@ body {
 
 .popup__login {
   display: flex;
+  flex-direction: column;
   justify-content: space-around;
-  margin-bottom: 3rem;
 }
 
 .login__input {
@@ -223,10 +230,13 @@ body {
   height: 3.6rem;
   border: 0.1rem solid var(--green-color);
   border-radius: 3rem;
+  margin-bottom: 3rem;
   padding: 0 1rem;
 }
 
 .popup__btn {
+  width: max-content;
+  margin: 0 auto;
   font-size: 2rem;
   padding: 0.5rem 1.5rem;
   border-radius: 2rem;
@@ -235,11 +245,11 @@ body {
 
 /* balance */
 .main {
-  margin-bottom: 5rem;
+  padding-bottom: 5rem;
 }
 @media (max-width: 500px) {
   .main {
-    margin-bottom: 2rem;
+    padding-bottom: 2rem;
   }
 }
 
@@ -298,7 +308,7 @@ body {
   margin-bottom: 2rem;
 }
 
-.balance__card-cvv {
+.balance__card-white-lines {
   display: flex;
   padding: 0 0 0 1rem;
 }
@@ -339,10 +349,12 @@ body {
   width: 5rem;
 }
 
-.balance__card-number {
+.balance__card-number,
+.balance__card-cvv {
   font-size: 2.1rem;
   margin-bottom: 1.5rem;
 }
+
 .balance__card-valid {
   display: flex;
   justify-content: center;
@@ -446,6 +458,7 @@ body {
 .transactions__layout {
   display: flex;
   justify-content: space-between;
+  overflow: visible;
 }
 
 .transactions__history {
@@ -455,6 +468,8 @@ body {
   margin-right: 3rem;
   height: auto;
   overflow: auto;
+  border-radius: 1rem;
+  box-shadow: 2px 2px 10px black;
 }
 
 .transactions__history::-webkit-scrollbar {
@@ -502,10 +517,12 @@ body {
 
 .transactions__event.transfer {
   background: rgb(141, 198, 65);
+  margin-bottom: 1rem;
 }
 
 .transactions__event.loan {
   background: rgb(27, 159, 247);
+  margin-bottom: 1rem;
 }
 
 .transactions__event.close {

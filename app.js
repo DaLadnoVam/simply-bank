@@ -1,48 +1,20 @@
 "use strict";
-// Functional popup login
-const btnLoginEl = document.getElementById("btnLogin");
-const popupEl = document.querySelector(".popup");
-const btnClosePopup = document.querySelector(".popup__btn-close");
-
-btnLoginEl.addEventListener("click", function () {
-  popupEl.classList.add("popup__show");
-});
-
-document.body.addEventListener("click", function (e) {
-  console.log(e.target.className);
-  if (e.target.className == "popup popup__show") {
-    popupEl.classList.remove("popup__show");
-  }
-});
-
-btnClosePopup.addEventListener("click", function () {
-  popupEl.classList.remove("popup__show");
-});
-
-// Functional rotate bank card
-const cardWrapper = document.querySelector(".balance__card-wrapper");
-const cardFrontSide = document.querySelector(".balance__card-front");
-const cardBackSide = document.querySelector(".balance__card-back");
-
-cardWrapper.addEventListener("click", function () {
-  cardFrontSide.classList.toggle("rotate-front");
-  cardBackSide.classList.toggle("rotate-back");
-});
-
 // some data
 const account1 = {
-  userName: "Leo Messi",
+  userName: "Ліза Назаренко",
+  userNameEng: "Lisa Nazarenko",
   transactions: [500, 250, -300, 5000, -850, -110, -170, 1100],
   interest: 1.5,
   pin: 1111,
-  cardNumber: 4404_3303_1111_0003,
+  cardNumber: 4404330311110003,
   validFrom: "07 / 22",
   validEnd: "07 / 25",
   cvv: 123,
 };
 
 const account2 = {
-  userName: "Bob Brown",
+  userName: "Олександр Стус",
+  userNameEng: "Oleksandr Stus",
   transactions: [200, -250, 300, 2000, -1850, 110, 230, -100],
   interest: 1.3,
   // pin: 0000, why 0000 do not working in strict mode
@@ -54,7 +26,8 @@ const account2 = {
 };
 
 const account3 = {
-  userName: "Martin McFly",
+  userName: "Володимир Мирний",
+  userNameEng: "Volodymyr Mirnyi",
   transactions: [600, -550, 200, 560, 850, -1010, -240, 100],
   interest: 1.3,
   pin: 1234,
@@ -65,7 +38,8 @@ const account3 = {
 };
 
 const account4 = {
-  userName: "Robert White",
+  userName: "Андрій Шевченко",
+  userNameEng: "Andriy Shevchenko",
   transactions: [1500, -250, -1300, 190, 770, 210, 550, -90],
   interest: 1.1,
   pin: 7777,
@@ -76,7 +50,8 @@ const account4 = {
 };
 
 const account5 = {
-  userName: "Lisa Tesco",
+  userName: "Ольга Тимошенко",
+  userNameEng: "Olga Tymoshenko",
   transactions: [500, -250, -50, 780, 1850, 110, -220, 20],
   interest: 1.4,
   pin: 4444,
@@ -88,20 +63,84 @@ const account5 = {
 
 const accounts = [account1, account2, account3, account4, account5];
 
-// Create elements transactions
+// variables
+const btnLoginEl = document.getElementById("btnLogin");
+const popupEl = document.querySelector(".popup");
+const btnClosePopup = document.querySelector(".popup__btn-close");
+const popupBtnText = document.querySelector(".btn-text");
+
+// inputs
+const loginName = document.querySelector(".login__input-name");
+const loginPin = document.querySelector(".login__input-pin");
+const popupBtn = document.querySelector(".popup__btn");
+
+//
+const cardWrapper = document.querySelector(".balance__card-wrapper");
+const cardFrontSide = document.querySelector(".balance__card-front");
+const cardBackSide = document.querySelector(".balance__card-back");
+
+//
 const transConteiner = document.querySelector(".transactions__history");
 const balanceEl = document.querySelector(".balance__cash");
 
+//
+const depositeMoney = document.querySelector("#received");
+const withdrawalMoney = document.querySelector("#deduced");
+const interestMoney = document.querySelector("#interest");
+
+// card number
+const cardNumber = document.querySelector(".balance__card-number");
+const balanceValidFrom = document.querySelector(".valid-from");
+const balanceValidEnd = document.querySelector(".valid-end");
+const ownerCard = document.querySelector(".balance__card-owner");
+const cvvNubmer = document.querySelector(".balance__card-cvv");
+const welcome = document.querySelector(".header__welcome");
+
+// Functional popup login
+btnLoginEl.addEventListener("click", function () {
+  if (popupBtnText.textContent === "Вийти") {
+    balanceValidFrom.textContent = "00 / 00";
+    balanceValidEnd.textContent = "00 / 00";
+    ownerCard.textContent = "Your Name";
+    cvvNubmer.textContent = "000";
+    welcome.textContent = "Ласкаво просимо!";
+    popupBtnText.textContent = "Вхід";
+    cardNumber.textContent = "**** **** **** ****";
+  } else {
+    popupEl.classList.add("popup__show");
+  }
+  // page reload !????
+});
+
+document.body.addEventListener("click", function (e) {
+  if (e.target.className == "popup popup__show") {
+    popupEl.classList.remove("popup__show");
+  }
+  loginName.value = "";
+  loginPin.value = "";
+});
+
+btnClosePopup.addEventListener("click", function () {
+  popupEl.classList.remove("popup__show");
+});
+
+// Functional rotate bank card
+cardWrapper.addEventListener("click", function () {
+  cardFrontSide.classList.toggle("rotate-front");
+  cardBackSide.classList.toggle("rotate-back");
+});
+
+// Create elements transactions
 const displayTransactions = function (transactions) {
   transConteiner.innerHTML = "";
 
   transactions.forEach(function (trans) {
-    const transType = trans > 0 ? "deposit" : "withdrawal";
+    const transType = trans > 0 ? "Депозит" : "Вивод коштів";
 
     const transactionRow = `
       <div class="transaction__row">
         <div>
-          <p class="transaction__type transaction__${transType}">${transType}</p>
+          <p class="transaction__type transaction__deposite">${transType}</p>
         </div>
         <p class="transaction__number">${trans} грн</p>
       </div>
@@ -111,35 +150,73 @@ const displayTransactions = function (transactions) {
   });
 };
 
-displayTransactions(account1.transactions);
-
-const createNickNames = function (accs) {
-  accs.forEach((acc) => {
-    acc.nickName = acc.userName
-      .toLowerCase()
-      .split(" ")
-      .map((word) => word[0])
-      .join("")
-      .toUpperCase();
-  });
-};
-
-createNickNames(accounts); // side effect!!!
-/*
-// console.log(accounts);
-// const userName = "Lisa Tesco"; // nickName = 'lt'
-// const nickName = userName
-//   .toLowerCase()
-//   .split(" ")
-//   .map((word) => word[0])
-//   .join("")
-//   .toUpperCase();
-// console.log(nickName);
-*/
-
 const displayBalance = function (transactions) {
   const balance = transactions.reduce((acc, trans) => acc + trans, 0);
   balanceEl.textContent = `${balance} грн`;
 };
 
-displayBalance(account1.transactions);
+const displayTotal = function (account) {
+  const depositesTotal = account.transactions
+    .filter((trans) => trans > 0)
+    .reduce((acc, trans) => acc + trans, 0);
+  depositeMoney.textContent = `${depositesTotal} грн`;
+
+  const withdrawalsTotal = account.transactions
+    .filter((trans) => trans < 0)
+    .reduce((acc, trans) => acc + trans, 0);
+
+  withdrawalMoney.textContent = `${Math.abs(withdrawalsTotal)} грн`;
+
+  const interestTotal = account.transactions
+    .filter((trans) => trans > 0)
+    .map((depos) => (depos * account.interest) / 100)
+    .filter((interst) => interst >= 5)
+    .reduce((acc, interest) => acc + interest, 0);
+  interestMoney.textContent = `${interestTotal} грн`;
+};
+
+const displayCardNumber = function (account) {
+  const arr = String(account.cardNumber).split("");
+  for (let i = 3; i < arr.length - 1; i += 4) {
+    arr[i] += "_";
+  }
+  arr.join("").replaceAll("_", " ");
+  cardNumber.textContent = `${arr.join("").replaceAll("_", " ")}`;
+
+  balanceValidFrom.textContent = `${activeAccount.validFrom}`;
+  balanceValidEnd.textContent = `${activeAccount.validEnd}`;
+  ownerCard.textContent = `Mr(-s) ${activeAccount.userNameEng}`;
+  cvvNubmer.textContent = `${activeAccount.cvv}`;
+  welcome.textContent = `Вітаємо, ${activeAccount.userName.split(" ")[0]}!`;
+};
+
+let activeAccount;
+
+popupBtn.addEventListener("click", function (e) {
+  e.preventDefault();
+  let updateName =
+    loginName.value.split("")[0].toUpperCase() + loginName.value.slice(1);
+
+  activeAccount = accounts.find(
+    (account) => account.userName.split(" ")[0] === updateName
+  );
+
+  if (activeAccount?.pin === Number(loginPin.value)) {
+    console.log("YEssss!!!");
+    // hidden popup
+    popupEl.classList.remove("popup__show");
+    popupBtnText.textContent = "Вийти";
+
+    // display transactions
+    displayTransactions(activeAccount.transactions);
+
+    // display card
+    displayCardNumber(activeAccount);
+
+    // display balance
+    displayBalance(activeAccount.transactions);
+
+    // display total operations
+    displayTotal(activeAccount);
+  }
+});
