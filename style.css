@@ -548,10 +548,6 @@ body {
   /*решить со совместимостью других браузеров*/
 }
 
-/* .transactions__history::-moz-scrollbar {
-  display: none;
-} */
-
 .transaction__row {
   display: flex;
   justify-content: space-between;
@@ -565,6 +561,14 @@ body {
   padding: 0 0.8rem;
   border-radius: 0.8rem;
   margin-right: 2rem;
+}
+
+.transaction__deposite {
+  background: green;
+}
+
+.transaction__withdrawal {
+  background: tomato;
 }
 
 .transaction__date {

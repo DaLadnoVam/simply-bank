@@ -68,7 +68,7 @@
               class="login__input login__input-pin"
             />
           </div>
-          <button type="button" class="popup__btn">Вхiд</button>
+          <button class="popup__btn">Вхiд</button>
         </form>
       </div>
     </div>
@@ -141,12 +141,20 @@
                 <h2 class="transactions__title">Перевести грошi</h2>
                 <form class="transactions__form">
                   <div class="inputs inputs-recipient">
-                    <input type="text" class="transactions__input" />
+                    <input
+                      type="text"
+                      class="transactions__input"
+                      id="recipient"
+                    />
                   </div>
                   <div class="inputs inputs-sum">
-                    <input type="text" class="transactions__input" />
+                    <input
+                      type="text"
+                      class="transactions__input"
+                      id="amount-money"
+                    />
                   </div>
-                  <button type="button" class="transactions__btn">
+                  <button class="transactions__btn" id="transfer">
                     <img src="images/right-arrow.png" alt="arrow right icon" />
                   </button>
                 </form>
@@ -155,13 +163,13 @@
                 <h2 class="transactions__title">Запрости займ</h2>
                 <form class="transactions__form">
                   <div class="inputs inputs-sum">
-                    <input type="text" class="transactions__input" />
+                    <input
+                      type="text"
+                      class="transactions__input"
+                      id="loan--amount"
+                    />
                   </div>
-                  <button
-                    type="button"
-                    class="transactions__btn"
-                    id="login__btn"
-                  >
+                  <button class="transactions__btn" id="loan">
                     <img src="images/right-arrow.png" alt="arrow right icon" />
                   </button>
                 </form>
@@ -170,12 +178,20 @@
                 <h2 class="transactions__title">Закрити рахунок</h2>
                 <form class="transactions__form">
                   <div class="inputs inputs-name">
-                    <input type="text" class="transactions__input" />
+                    <input
+                      type="text"
+                      class="transactions__input"
+                      id="user--name"
+                    />
                   </div>
                   <div class="inputs inputs-pin">
-                    <input type="text" class="transactions__input" />
+                    <input
+                      type="text"
+                      class="transactions__input"
+                      id="user--pin"
+                    />
                   </div>
-                  <button type="button" class="transactions__btn">
+                  <button class="transactions__btn" id="close--account">
                     <img src="images/right-arrow.png" alt="arrow right icon" />
                   </button>
                 </form>
