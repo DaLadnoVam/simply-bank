@@ -22,7 +22,7 @@
     <header class="header" id="login">
       <div class="layout header__layout">
         <p class="header__welcome">Ласкаво просимо!</p>
-        <div class="header__logo">Просто</div>
+        <div class="header__logo">Просто банк</div>
         <div class="header__right">
           <p class="header__exchange-rate">$ 36.5686 / 37.4532</p>
           <button type="button" class="header__log-in" id="btnLogin">
@@ -46,7 +46,6 @@
         </div>
       </div>
     </header>
-
     <!-- Popup Login -->
     <div class="popup">
       <div class="popup__wrapper">
@@ -73,144 +72,184 @@
         </form>
       </div>
     </div>
-
-    <main class="main">
-      <!--Balance-->
-      <section class="balance">
-        <div class="layout layout__balance">
-          <div class="balance__card-wrapper">
-            <div class="balance__card balance__card-front">
-              <p class="balance__card-title">Simply Bank</p>
-              <h4 class="credit">Credit card.</h4>
-              <p class="balance__card-number">0000 0000 0000 0000</p>
-              <div class="balance__card-valid">
-                <p class="balance__valid valid-from">00 / 00</p>
-                <p class="balance__valid valid-end">00 / 00</p>
+    <div class="wrapper">
+      <main class="main">
+        <!--Balance-->
+        <section class="balance">
+          <div class="layout layout__balance">
+            <div class="balance__card-wrapper">
+              <div class="balance__card balance__card-front">
+                <p class="balance__card-title">Simply Bank</p>
+                <h4 class="credit">Credit card.</h4>
+                <p class="balance__card-number">0000 0000 0000 0000</p>
+                <div class="balance__card-valid">
+                  <p class="balance__valid valid-from">00 / 00</p>
+                  <p class="balance__valid valid-end">00 / 00</p>
+                </div>
+                <p class="balance__card-owner">Your Name</p>
+                <div class="balance__card-master-card">
+                  <div class="circle-red"></div>
+                  <div class="circle-orange"></div>
+                </div>
               </div>
-              <p class="balance__card-owner">Your Name</p>
-              <div class="balance__card-master-card">
-                <div class="circle-red"></div>
-                <div class="circle-orange"></div>
+              <div class="balance__card balance__card-back">
+                <div class="balance__card-black-line"></div>
+                <div class="balance__card-white-lines">
+                  <div class="balance__card-lines">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                  </div>
+                  <p class="balance__card-cvv">000</p>
+                </div>
+                <div class="balance__card-square"></div>
               </div>
             </div>
-            <div class="balance__card balance__card-back">
-              <div class="balance__card-black-line"></div>
-              <div class="balance__card-white-lines">
-                <div class="balance__card-lines">
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                  <span></span>
+            <p class="balance__cash">0000 грн</p>
+          </div>
+        </section>
+
+        <!--Transactions-->
+        <section class="transactions">
+          <div class="layout transactions__layout">
+            <!-- transactions history -->
+            <div class="transactions__history">
+              <div class="transaction__row">
+                <div>
+                  <p class="transaction__type transaction__deposite">Депозит</p>
+                  <p class="transaction__date">2 дня тому</p>
                 </div>
-                <p class="balance__card-cvv">000</p>
+                <p class="transaction__number">5000 грн</p>
               </div>
-              <div class="balance__card-square"></div>
+              <div class="transaction__row">
+                <div>
+                  <p class="transaction__type transaction__withdrawal">
+                    Вивод коштiв
+                  </p>
+                  <p class="transaction__date">2 дня тому</p>
+                </div>
+                <p class="transaction__number">5000 грн</p>
+              </div>
+            </div>
+
+            <!-- transactions events -->
+            <div class="transactions__events">
+              <div class="transactions__event transfer">
+                <h2 class="transactions__title">Перевести грошi</h2>
+                <form class="transactions__form">
+                  <div class="inputs inputs-recipient">
+                    <input type="text" class="transactions__input" />
+                  </div>
+                  <div class="inputs inputs-sum">
+                    <input type="text" class="transactions__input" />
+                  </div>
+                  <button type="button" class="transactions__btn">
+                    <img src="images/right-arrow.png" alt="arrow right icon" />
+                  </button>
+                </form>
+              </div>
+              <div class="transactions__event loan">
+                <h2 class="transactions__title">Запрости займ</h2>
+                <form class="transactions__form">
+                  <div class="inputs inputs-sum">
+                    <input type="text" class="transactions__input" />
+                  </div>
+                  <button
+                    type="button"
+                    class="transactions__btn"
+                    id="login__btn"
+                  >
+                    <img src="images/right-arrow.png" alt="arrow right icon" />
+                  </button>
+                </form>
+              </div>
+              <div class="transactions__event close">
+                <h2 class="transactions__title">Закрити рахунок</h2>
+                <form class="transactions__form">
+                  <div class="inputs inputs-name">
+                    <input type="text" class="transactions__input" />
+                  </div>
+                  <div class="inputs inputs-pin">
+                    <input type="text" class="transactions__input" />
+                  </div>
+                  <button type="button" class="transactions__btn">
+                    <img src="images/right-arrow.png" alt="arrow right icon" />
+                  </button>
+                </form>
+              </div>
             </div>
           </div>
-          <p class="balance__cash">0000 грн</p>
+        </section>
+      </main>
+
+      <!--Footer-->
+      <footer class="footer">
+        <div class="layout footer__layout">
+          <ul class="footer__list">
+            <li class="footer__list-item">
+              <p class="footer__list-text">
+                Отриманно:
+                <span class="footer__amount" id="received">0000 грн</span>
+              </p>
+            </li>
+            <li class="footer__list-item">
+              <p class="footer__list-text">
+                Виведенно:
+                <span class="footer__amount" id="deduced">0000 грн</span>
+              </p>
+            </li>
+            <li class="footer__list-item">
+              <p class="footer__list-text">
+                Процент:
+                <span class="footer__amount" id="interest">0000 грн</span>
+              </p>
+            </li>
+          </ul>
+          <p class="footer__timer">
+            Вихід із програми через <span>05:00</span> хвилин
+          </p>
         </div>
-      </section>
+      </footer>
+    </div>
 
-      <!--Transactions-->
-      <section class="transactions">
-        <div class="layout transactions__layout">
-          <!-- transactions history -->
-          <div class="transactions__history">
-            <div class="transaction__row">
-              <div>
-                <p class="transaction__type transaction__deposite">Депозит</p>
-                <p class="transaction__date">2 дня тому</p>
-              </div>
-              <p class="transaction__number">5000 грн</p>
-            </div>
-            <div class="transaction__row">
-              <div>
-                <p class="transaction__type transaction__withdrawal">
-                  Вивод коштiв
-                </p>
-                <p class="transaction__date">2 дня тому</p>
-              </div>
-              <p class="transaction__number">5000 грн</p>
-            </div>
-          </div>
-
-          <!-- transactions events -->
-          <div class="transactions__events">
-            <div class="transactions__event transfer">
-              <h2 class="transactions__title">Перевести грошi</h2>
-              <form class="transactions__form">
-                <div class="inputs inputs-recipient">
-                  <input type="text" class="transactions__input" />
-                </div>
-                <div class="inputs inputs-sum">
-                  <input type="text" class="transactions__input" />
-                </div>
-                <button type="button" class="transactions__btn">
-                  <img src="img/right-arrow.png" alt="arrow right icon" />
-                </button>
-              </form>
-            </div>
-            <div class="transactions__event loan">
-              <h2 class="transactions__title">Запрости займ</h2>
-              <form class="transactions__form">
-                <div class="inputs inputs-sum">
-                  <input type="text" class="transactions__input" />
-                </div>
-                <button type="button" class="transactions__btn" id="login__btn">
-                  <img src="img/right-arrow.png" alt="arrow right icon" />
-                </button>
-              </form>
-            </div>
-            <div class="transactions__event close">
-              <h2 class="transactions__title">Закрити рахунок</h2>
-              <form class="transactions__form">
-                <div class="inputs inputs-name">
-                  <input type="text" class="transactions__input" />
-                </div>
-                <div class="inputs inputs-pin">
-                  <input type="text" class="transactions__input" />
-                </div>
-                <button type="button" class="transactions__btn">
-                  <img src="img/right-arrow.png" alt="arrow right icon" />
-                </button>
-              </form>
-            </div>
-          </div>
+    <section class="greeting">
+      <div class="layout greeting__layout">
+        <div class="greeting__top">
+          <p class="greeting__text">
+            ПростоБанк — один із перших приватних комерційних банків, заснованих
+            в Україні. Рішення про його створення було ухвалено на засіданні
+            засновників 7 лютого 1992 року. 19 березня 1992 року банк пройшов
+            державну реєстрацію.
+          </p>
+          <img
+            class="greeting__dollars"
+            src="images/dollars.png"
+            alt="dollars"
+          />
         </div>
-      </section>
-    </main>
-
-    <!--Footer-->
-    <footer class="footer">
-      <div class="layout footer__layout">
-        <ul class="footer__list">
-          <li class="footer__list-item">
-            <p class="footer__list-text">
-              Отриманно:
-              <span class="footer__amount" id="received">0000 грн</span>
-            </p>
-          </li>
-          <li class="footer__list-item">
-            <p class="footer__list-text">
-              Виведенно:
-              <span class="footer__amount" id="deduced">0000 грн</span>
-            </p>
-          </li>
-          <li class="footer__list-item">
-            <p class="footer__list-text">
-              Процент:
-              <span class="footer__amount" id="interest">0000 грн</span>
-            </p>
-          </li>
-        </ul>
-        <p class="footer__timer">
-          Вихід із програми через <span>05:00</span> хвилин
-        </p>
+        <div class="greeting__down">
+          <p p class="greeting__text">
+            ПростоБанк має другу за чисельністю мережу відділень і найбільшу
+            мережу банкоматів і терміналів серед банків України. Станом на
+            липень 2022 року в мережі працює понад 7тис. банкоматів, 11 тис.
+            платіжних терміналів та понад 250 тис. торговельних POS-терміналів.
+            Національна мережа банківського обслуговування ПриватБанку має у
+            своєму складі більше 1 200 відділень. ПриватБанк — найбільший
+            емітент і еквайр електронних платіжних засобів в Україні. Банку
+            належить система грошових переказів PrivatMoney та найпопулярніші в
+            Україні платіжні сервіси Приват24 та LiqPay.
+          </p>
+          <img
+            class="greeting__bags"
+            src="images/bags-money.png"
+            alt="bags money"
+          />
+        </div>
       </div>
-    </footer>
-
+    </section>
     <script src="app.js"></script>
   </body>
 </html>

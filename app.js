@@ -64,26 +64,27 @@ const account5 = {
 const accounts = [account1, account2, account3, account4, account5];
 
 // variables
+// popup elements
 const btnLoginEl = document.getElementById("btnLogin");
 const popupEl = document.querySelector(".popup");
 const btnClosePopup = document.querySelector(".popup__btn-close");
 const popupBtnText = document.querySelector(".btn-text");
 
-// inputs
+// inputs elements
 const loginName = document.querySelector(".login__input-name");
 const loginPin = document.querySelector(".login__input-pin");
 const popupBtn = document.querySelector(".popup__btn");
 
-//
+// bank card elements
 const cardWrapper = document.querySelector(".balance__card-wrapper");
 const cardFrontSide = document.querySelector(".balance__card-front");
 const cardBackSide = document.querySelector(".balance__card-back");
 
-//
+// transactions
 const transConteiner = document.querySelector(".transactions__history");
 const balanceEl = document.querySelector(".balance__cash");
 
-//
+// total values
 const depositeMoney = document.querySelector("#received");
 const withdrawalMoney = document.querySelector("#deduced");
 const interestMoney = document.querySelector("#interest");
@@ -96,16 +97,21 @@ const ownerCard = document.querySelector(".balance__card-owner");
 const cvvNubmer = document.querySelector(".balance__card-cvv");
 const welcome = document.querySelector(".header__welcome");
 
+// choise current user
+let activeAccount;
+
 // Functional popup login
 btnLoginEl.addEventListener("click", function () {
   if (popupBtnText.textContent === "Вийти") {
-    balanceValidFrom.textContent = "00 / 00";
-    balanceValidEnd.textContent = "00 / 00";
-    ownerCard.textContent = "Your Name";
-    cvvNubmer.textContent = "000";
+    // balanceValidFrom.textContent = "00 / 00";
+    // balanceValidEnd.textContent = "00 / 00";
+    // ownerCard.textContent = "Your Name";
+    // cvvNubmer.textContent = "000";
     welcome.textContent = "Ласкаво просимо!";
     popupBtnText.textContent = "Вхід";
-    cardNumber.textContent = "**** **** **** ****";
+    document.querySelector(".wrapper").style.display = "none";
+    document.querySelector(".greeting").style.display = "block";
+    // cardNumber.textContent = "**** **** **** ****";
   } else {
     popupEl.classList.add("popup__show");
   }
@@ -116,8 +122,6 @@ document.body.addEventListener("click", function (e) {
   if (e.target.className == "popup popup__show") {
     popupEl.classList.remove("popup__show");
   }
-  loginName.value = "";
-  loginPin.value = "";
 });
 
 btnClosePopup.addEventListener("click", function () {
@@ -150,11 +154,13 @@ const displayTransactions = function (transactions) {
   });
 };
 
+// display balance
 const displayBalance = function (transactions) {
   const balance = transactions.reduce((acc, trans) => acc + trans, 0);
   balanceEl.textContent = `${balance} грн`;
 };
 
+// display total values
 const displayTotal = function (account) {
   const depositesTotal = account.transactions
     .filter((trans) => trans > 0)
@@ -175,6 +181,7 @@ const displayTotal = function (account) {
   interestMoney.textContent = `${interestTotal} грн`;
 };
 
+// display info obout bank card
 const displayCardNumber = function (account) {
   const arr = String(account.cardNumber).split("");
   for (let i = 3; i < arr.length - 1; i += 4) {
@@ -190,8 +197,7 @@ const displayCardNumber = function (account) {
   welcome.textContent = `Вітаємо, ${activeAccount.userName.split(" ")[0]}!`;
 };
 
-let activeAccount;
-
+// Input in app
 popupBtn.addEventListener("click", function (e) {
   e.preventDefault();
   let updateName =
@@ -219,4 +225,10 @@ popupBtn.addEventListener("click", function (e) {
     // display total operations
     displayTotal(activeAccount);
   }
+
+  document.querySelector(".wrapper").style.display = "block";
+  document.querySelector(".greeting").style.display = "none";
+
+  loginName.value = "";
+  loginPin.value = "";
 });
