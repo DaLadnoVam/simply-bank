@@ -10,6 +10,18 @@ const account1 = {
   validFrom: "07 / 22",
   validEnd: "07 / 25",
   cvv: 123,
+  transactionsDates: [
+    "20203-05-07T14:43:31.074Z",
+    "2020-10-29T11:24:19.761Z",
+    "2020-11-15T10:45:23.907Z",
+    "2021-01-22T12:17:46.255Z",
+    "2021-02-12T15:14:06.486Z",
+    "2023-05-06T11:42:26.371Z",
+    "2023-05-05T07:43:59.331Z",
+    "2023-05-04T15:21:20.814Z",
+  ],
+  currency: "USD",
+  locale: "en-US",
 };
 
 const account2 = {
@@ -23,6 +35,18 @@ const account2 = {
   validFrom: "03 / 22",
   validEnd: "03 / 25",
   cvv: 231,
+  transactionsDates: [
+    "2020-10-02T14:43:31.074Z",
+    "2020-10-29T11:24:19.761Z",
+    "2020-11-15T10:45:23.907Z",
+    "2021-01-22T12:17:46.255Z",
+    "2021-02-12T15:14:06.486Z",
+    "2021-03-09T11:42:26.371Z",
+    "2021-05-21T07:43:59.331Z",
+    "2021-06-22T15:21:20.814Z",
+  ],
+  currency: "UAH",
+  locale: "uk-UA",
 };
 
 const account3 = {
@@ -35,6 +59,18 @@ const account3 = {
   validFrom: "05 / 21",
   validEnd: "05 / 24",
   cvv: 554,
+  transactionsDates: [
+    "2020-10-02T14:43:31.074Z",
+    "2020-10-29T11:24:19.761Z",
+    "2020-11-15T10:45:23.907Z",
+    "2021-01-22T12:17:46.255Z",
+    "2021-02-12T15:14:06.486Z",
+    "2021-03-09T11:42:26.371Z",
+    "2021-05-21T07:43:59.331Z",
+    "2021-06-22T15:21:20.814Z",
+  ],
+  currency: "RUB",
+  locale: "ru-RU",
 };
 
 const account4 = {
@@ -47,6 +83,18 @@ const account4 = {
   validFrom: "01 / 20",
   validEnd: "01 / 23",
   cvv: 897,
+  transactionsDates: [
+    "2020-10-02T14:43:31.074Z",
+    "2020-10-29T11:24:19.761Z",
+    "2020-11-15T10:45:23.907Z",
+    "2021-01-22T12:17:46.255Z",
+    "2021-02-12T15:14:06.486Z",
+    "2021-03-09T11:42:26.371Z",
+    "2021-05-21T07:43:59.331Z",
+    "2021-06-22T15:21:20.814Z",
+  ],
+  currency: "EUR",
+  locale: "fr-CA",
 };
 
 const account5 = {
@@ -59,6 +107,18 @@ const account5 = {
   validFrom: "04 / 23",
   validEnd: "04 / 27",
   cvv: 509,
+  transactionsDates: [
+    "2020-10-02T14:43:31.074Z",
+    "2020-10-29T11:24:19.761Z",
+    "2020-11-15T10:45:23.907Z",
+    "2021-01-22T12:17:46.255Z",
+    "2021-02-12T15:14:06.486Z",
+    "2021-03-09T11:42:26.371Z",
+    "2021-05-21T07:43:59.331Z",
+    "2021-06-22T15:21:20.814Z",
+  ],
+  currency: "USD",
+  locale: "en-US",
 };
 
 const accounts = [account1, account2, account3, account4, account5];
@@ -140,11 +200,18 @@ cardWrapper.addEventListener("click", function () {
 });
 
 // Create elements transactions
-const displayTransactions = function (transactions) {
+const displayTransactions = function (account) {
   transConteiner.innerHTML = "";
 
-  transactions.forEach(function (trans) {
+  account.transactions.forEach(function (trans, index) {
     const transType = trans > 0 ? "deposite" : "withdrawal";
+
+    let now = new Date();
+
+    let time = new Date(account.transactionsDates[index]);
+    let day = time.getDate();
+    let month = time.getMonth();
+    let year = time.getFullYear();
 
     const transactionRow = `
       <div class="transaction__row">
@@ -152,8 +219,14 @@ const displayTransactions = function (transactions) {
           <p class="transaction__type transaction__${transType}">${
       transType === "deposite" ? "Депозит" : "Вивод коштів"
     }</p>
+          <p class="transaction__date">${
+            (now - time) / (1 * 24 * 60 * 60 * 1000) < 5
+              ? Math.round((now - time) / (1 * 24 * 60 * 60 * 1000)) +
+                " дня тому"
+              : `${day}/${month}/${year}`
+          }</p>
         </div>
-        <p class="transaction__number">${trans} грн</p>
+        <p class="transaction__number">${trans.toFixed(2)}</p>
       </div>
     `;
 
@@ -165,7 +238,7 @@ const displayTransactions = function (transactions) {
 const displayBalance = function (account) {
   const balance = account.transactions.reduce((acc, trans) => acc + trans, 0);
   account.balance = balance;
-  balanceEl.textContent = `${balance} грн`;
+  balanceEl.textContent = `${Number(balance).toFixed(2)}`;
 };
 
 // display total values
@@ -173,25 +246,25 @@ const displayTotal = function (account) {
   const depositesTotal = account.transactions
     .filter((trans) => trans > 0)
     .reduce((acc, trans) => acc + trans, 0);
-  depositeMoney.textContent = `${depositesTotal} грн`;
+  depositeMoney.textContent = `${Number(depositesTotal).toFixed(2)}`;
 
   const withdrawalsTotal = account.transactions
     .filter((trans) => trans < 0)
     .reduce((acc, trans) => acc + trans, 0);
 
-  withdrawalMoney.textContent = `${Math.abs(withdrawalsTotal)} грн`;
+  withdrawalMoney.textContent = `${Math.abs(withdrawalsTotal).toFixed(2)}`;
 
   const interestTotal = account.transactions
     .filter((trans) => trans > 0)
     .map((depos) => (depos * account.interest) / 100)
     .filter((interst) => interst >= 5)
     .reduce((acc, interest) => acc + interest, 0);
-  interestMoney.textContent = `${interestTotal} грн`;
+  interestMoney.textContent = `${Number(interestTotal).toFixed(2)}`;
 };
 
 const updateUi = function (account) {
   // display transactions
-  displayTransactions(account.transactions);
+  displayTransactions(account);
 
   // display balance
   displayBalance(account);
@@ -266,7 +339,9 @@ btnTransfer.addEventListener("click", function (e) {
       recipientAccount?.userName.split(" ")[0]
   ) {
     activeAccount.transactions.push(-transferAmount);
+    activeAccount.transactionsDates.push(new Date());
     recipientAccount.transactions.push(transferAmount);
+    recipientAccount.transactionsDates.push(new Date());
     updateUi(activeAccount);
   }
 });
@@ -302,6 +377,7 @@ btnLoan.addEventListener("click", function (e) {
     activeAccount.transactions.some((trans) => trans >= (loanValue * 10) / 100)
   ) {
     activeAccount.transactions.push(loanValue);
+    activeAccount.transactionsDates.push(new Date());
     updateUi(activeAccount);
   }
   loanAmount.value = "";
