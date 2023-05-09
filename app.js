@@ -11,7 +11,7 @@ const account1 = {
   validEnd: "07 / 25",
   cvv: 123,
   transactionsDates: [
-    "20203-05-07T14:43:31.074Z",
+    "2023-05-07T14:43:31.074Z",
     "2020-10-29T11:24:19.761Z",
     "2020-11-15T10:45:23.907Z",
     "2021-01-22T12:17:46.255Z",
@@ -29,7 +29,6 @@ const account2 = {
   userNameEng: "Oleksandr Stus",
   transactions: [200, -250, 300, 2000, -1850, 110, 230, -100],
   interest: 1.3,
-  // pin: 0000, why 0000 do not working in strict mode
   pin: 1234,
   cardNumber: 4422_3345_1341_4303,
   validFrom: "03 / 22",
@@ -69,8 +68,8 @@ const account3 = {
     "2021-05-21T07:43:59.331Z",
     "2021-06-22T15:21:20.814Z",
   ],
-  currency: "RUB",
-  locale: "ru-RU",
+  currency: "UAH",
+  locale: "uk-UA",
 };
 
 const account4 = {
@@ -213,18 +212,25 @@ const displayTransactions = function (account) {
     let month = time.getMonth();
     let year = time.getFullYear();
 
+    let updateDate = new Intl.DateTimeFormat(account.locale).format(time);
+
+    if (
+      (now - time) / (1 * 24 * 60 * 60 * 1000) < 5 &&
+      (now - time) / (1 * 24 * 60 * 60 * 1000) > 1
+    ) {
+      updateDate =
+        Math.round((now - time) / (1 * 24 * 60 * 60 * 1000)) + " дня тому";
+    } else if ((now - time) / (1 * 24 * 60 * 60 * 1000) < 1) {
+      updateDate = "Сьогодні";
+    }
+
     const transactionRow = `
       <div class="transaction__row">
         <div>
           <p class="transaction__type transaction__${transType}">${
       transType === "deposite" ? "Депозит" : "Вивод коштів"
     }</p>
-          <p class="transaction__date">${
-            (now - time) / (1 * 24 * 60 * 60 * 1000) < 5
-              ? Math.round((now - time) / (1 * 24 * 60 * 60 * 1000)) +
-                " дня тому"
-              : `${day}/${month}/${year}`
-          }</p>
+          <p class="transaction__date">${updateDate}</p>
         </div>
         <p class="transaction__number">${trans.toFixed(2)}</p>
       </div>
@@ -238,7 +244,10 @@ const displayTransactions = function (account) {
 const displayBalance = function (account) {
   const balance = account.transactions.reduce((acc, trans) => acc + trans, 0);
   account.balance = balance;
-  balanceEl.textContent = `${Number(balance).toFixed(2)}`;
+  balanceEl.textContent = new Intl.NumberFormat(account.locale, {
+    style: "currency",
+    currency: account.currency,
+  }).format(balance);
 };
 
 // display total values
@@ -246,20 +255,31 @@ const displayTotal = function (account) {
   const depositesTotal = account.transactions
     .filter((trans) => trans > 0)
     .reduce((acc, trans) => acc + trans, 0);
-  depositeMoney.textContent = `${Number(depositesTotal).toFixed(2)}`;
+  depositeMoney.textContent = new Intl.NumberFormat(account.locale, {
+    style: "currency",
+    currency: account.currency,
+  }).format(depositesTotal);
 
-  const withdrawalsTotal = account.transactions
-    .filter((trans) => trans < 0)
-    .reduce((acc, trans) => acc + trans, 0);
+  const withdrawalsTotal = Math.abs(
+    account.transactions
+      .filter((trans) => trans < 0)
+      .reduce((acc, trans) => acc + trans, 0)
+  );
 
-  withdrawalMoney.textContent = `${Math.abs(withdrawalsTotal).toFixed(2)}`;
+  withdrawalMoney.textContent = new Intl.NumberFormat(account.locale, {
+    style: "currency",
+    currency: account.currency,
+  }).format(withdrawalsTotal);
 
   const interestTotal = account.transactions
     .filter((trans) => trans > 0)
     .map((depos) => (depos * account.interest) / 100)
     .filter((interst) => interst >= 5)
     .reduce((acc, interest) => acc + interest, 0);
-  interestMoney.textContent = `${Number(interestTotal).toFixed(2)}`;
+  interestMoney.textContent = new Intl.NumberFormat(account.locale, {
+    style: "currency",
+    currency: account.currency,
+  }).format(interestTotal);
 };
 
 const updateUi = function (account) {
